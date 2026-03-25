@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Work — Ananya Varma Mudunuri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --black:#080807;--off-white:#f2efe8;
+  --gold:#b8955a;--gold-light:#d4b483;
+  --muted2:rgba(242,239,232,.12);
+  --card:#0f0f0d;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',sans-serif;
+}
+body{
+  background:var(--black);color:var(--off-white);
+  font-family:var(--sans);font-weight:300;
+  overflow-x:hidden;cursor:none;
+}
+.cursor{
+  width:8px;height:8px;background:var(--gold);border-radius:50%;
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
+  transition:width .18s,height .18s,background .18s;
+}
+.cursor.grow{width:36px;height:36px;background:transparent;border:1px solid var(--gold-light)}
+.cursor-ring{
+  width:34px;height:34px;border:1px solid rgba(184,149,90,.25);border-radius:50%;
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9998;
+}
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:2rem 5vw;
+  border-bottom:1px solid var(--muted2);
+  background:rgba(8,8,7,.7);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.nav-logo{
+  font-family:var(--serif);font-size:1.05rem;font-weight:300;font-style:italic;
+  color:var(--off-white);text-decoration:none;opacity:.8;transition:opacity .2s;
+}
+.nav-logo:hover{opacity:1}
+.nav-links{display:flex;gap:3rem}
+.nav-links a{
+  font-size:.66rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(242,239,232,.5);text-decoration:none;position:relative;transition:color .25s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;
+  background:var(--gold);transition:width .3s;
+}
+.nav-links a:hover,
+.nav-links a.active{color:var(--off-white)}
+.nav-links a:hover::after,
+.nav-links a.active::after{width:100%}
+/* PAGE HEADER */
+.page-header{
+  padding:14rem 5vw 5rem;
+  position:relative;overflow:hidden;
+}
+.page-header::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  opacity:.35;
+}
+.ph-label{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;display:block}
+.ph-title{
+  font-family:var(--serif);font-size:clamp(3.5rem,8vw,8rem);
+  font-weight:300;line-height:.95;color:var(--off-white);
+}
+.ph-title em{font-style:italic;color:rgba(242,239,232,.45)}
+
+/* TABS */
+.tabs-bar{
+  position:sticky;top:73px;z-index:100;
+  display:flex;gap:0;
+  border-top:1px solid var(--muted2);
+  border-bottom:1px solid var(--muted2);
+  background:rgba(8,8,7,.85);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  padding:0 5vw;
+}
+.tab-btn{
+  background:none;border:none;cursor:none;
+  font-family:var(--sans);font-size:.63rem;font-weight:400;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(242,239,232,.42);
+  padding:1.2rem 2rem;
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  transition:color .22s,border-color .22s;
+  position:relative;
+}
+.tab-btn::before{
+  content:attr(data-num);
+  font-family:var(--serif);font-style:italic;font-size:.85rem;
+  color:var(--gold);opacity:.5;
+  margin-right:.5rem;
+  transition:opacity .22s;
+}
+.tab-btn.active{color:var(--off-white);border-bottom-color:var(--gold)}
+.tab-btn.active::before{opacity:1}
+.tab-btn:hover{color:var(--off-white)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── SECTION WRAPPER ── */
+.sec-wrap{padding:5rem 5vw 8rem}
+.sec-intro{
+  font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.5rem);
+  font-style:italic;color:rgba(242,239,232,.45);
+  max-width:520px;margin-bottom:4rem;line-height:1.6;
+}
+
+/* EXPERIENCE */
+.exp-list{border-top:1px solid var(--muted2)}
+.exp-row{
+  display:grid;grid-template-columns:140px 1fr auto;gap:3rem;align-items:start;
+  padding:3.5rem 0;border-bottom:1px solid var(--muted2);
+  text-decoration:none;color:inherit;
+  transition:background .2s;
+}
+.exp-row:hover{background:rgba(184,149,90,.03)}
+.exp-period{font-size:.68rem;color:rgba(242,239,232,.38);letter-spacing:.06em;padding-top:.5rem}
+.exp-main{}
+.exp-company{
+  font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:600;line-height:1;margin-bottom:.5rem;
+  color:var(--off-white);
+}
+.exp-role{
+  font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+}
+.exp-arrow{font-size:1.1rem;color:rgba(242,239,232,.2);padding-top:.5rem;transition:transform .2s,color .2s}
+.exp-row:hover .exp-arrow{transform:translate(3px,-3px);color:var(--gold)}
+
+/* PROJECTS */
+.proj-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--muted2);
+}
+.proj-card{
+  background:var(--black);padding:2.4rem;
+  text-decoration:none;color:var(--off-white);
+  display:flex;flex-direction:column;gap:.7rem;
+  min-height:250px;
+  transition:background .22s;
+  position:relative;overflow:hidden;
+}
+.proj-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.proj-card:hover{background:#0e0e0c}
+.proj-card:hover::before{opacity:.4}
+.proj-num{
+  font-family:var(--serif);font-size:2.5rem;font-weight:300;font-style:italic;
+  color:rgba(242,239,232,.1);line-height:1;margin-bottom:.3rem;
+}
+.proj-title{
+  font-family:var(--serif);font-size:1.2rem;font-weight:600;
+  line-height:1.25;flex-grow:1;color:var(--off-white);
+}
+.proj-desc{font-size:.78rem;color:rgba(242,239,232,.5);line-height:1.6}
+.proj-tech{
+  font-size:.58rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);
+  border-top:1px solid var(--muted2);padding-top:.75rem;margin-top:auto;
+}
+.proj-arrow-sm{
+  position:absolute;top:2rem;right:2rem;
+  font-size:.9rem;color:rgba(242,239,232,.15);
+  transition:color .2s,transform .2s;
+}
+.proj-card:hover .proj-arrow-sm{color:var(--gold);transform:translate(3px,-3px)}
+
+/* CERTIFICATIONS */
+.certs-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1px;background:var(--muted2);
+}
+.cert-card{
+  background:var(--black);padding:2.5rem;
+  text-decoration:none;color:var(--off-white);
+  display:flex;flex-direction:column;gap:.7rem;
+  transition:background .22s;
+}
+.cert-card:hover{background:#0e0e0c}
+.cert-icon-wrap{display:flex;align-items:center;gap:.8rem;margin-bottom:.3rem}
+.cert-badge{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.6rem;font-weight:600;flex-shrink:0;
+}
+.aws{background:#ff9900;color:#000}
+.gcp{background:#4285f4;color:#fff}
+.sf{background:#00a1e0;color:#fff}
+.cert-provider{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,239,232,.38)}
+.cert-name{
+  font-family:var(--serif);font-size:1.15rem;font-weight:600;
+  line-height:1.35;color:var(--off-white);
+}
+.cert-verify{
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);margin-top:.2rem;
+  transition:letter-spacing .2s;
+}
+.cert-card:hover .cert-verify{letter-spacing:.14em}
+
+/* RESEARCH */
+.research-list{border-top:1px solid var(--muted2)}
+.res-item{
+  display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;
+  padding:2.8rem 0;border-bottom:1px solid var(--muted2);
+  text-decoration:none;color:var(--off-white);
+  transition:background .2s;
+}
+.res-item:hover{background:rgba(184,149,90,.03)}
+.res-idx{
+  font-family:var(--serif);font-size:.85rem;font-style:italic;
+  color:var(--gold);opacity:.5;margin-bottom:.6rem;display:block;
+}
+.res-title{
+  font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.6rem);
+  font-weight:600;line-height:1.3;margin-bottom:.4rem;
+}
+.res-pub{font-size:.72rem;color:rgba(242,239,232,.4);letter-spacing:.04em}
+.res-arrow{font-size:1.3rem;color:rgba(242,239,232,.2);flex-shrink:0;transition:transform .2s,color .2s}
+.res-item:hover .res-arrow{transform:translate(3px,-3px);color:var(--gold)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+.reveal.vis{opacity:1;transform:none}
+
+/* PAGE VEIL */
+.page-veil{position:fixed;inset:0;z-index:900;background:var(--black);pointer-events:none;opacity:0;transition:opacity .4s ease}
+.page-veil.show{opacity:1;pointer-events:all}
+
+/* FOOTER */
+footer{border-top:1px solid var(--muted2);padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:.62rem;color:rgba(242,239,232,.28);letter-spacing:.1em;text-transform:uppercase}
+.foot-links{display:flex;gap:2rem}
+.foot-links a{font-size:.62rem;color:rgba(242,239,232,.3);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.foot-links a:hover{color:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .proj-grid{grid-template-columns:1fr 1fr}
+  .exp-row{grid-template-columns:1fr;gap:.8rem}
+  .exp-arrow{display:none}
+  .tabs-bar{overflow-x:auto;padding:0 1.5rem}
+  .tab-btn{padding:1rem 1.2rem}
+  nav{padding:1.4rem 1.5rem}
+  .sec-wrap{padding:4rem 1.5rem 6rem}
+  .page-header{padding:11rem 1.5rem 4rem}
+  footer{padding:2rem 1.5rem;flex-direction:column;gap:1.2rem;text-align:center}
+}
+@media(max-width:600px){
+  .proj-grid{grid-template-columns:1fr}
+  .certs-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+<div class="page-veil" id="veil"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">Ananya</a>
+  <div class="nav-links">
+    <a href="about.html">About me</a>
+    <a href="work.html" class="active">My work</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <span class="ph-label reveal">My Work</span>
+  <h1 class="ph-title reveal">Experience, projects,<br><em>and everything in between</em></h1>
+</header>
+
+<!-- TABS -->
+<div class="tabs-bar">
+  <button class="tab-btn active" data-num="01" onclick="switchTab('experience',this)">Experience</button>
+  <button class="tab-btn" data-num="02" onclick="switchTab('projects',this)">Projects</button>
+  <button class="tab-btn" data-num="03" onclick="switchTab('certs',this)">Certifications</button>
+  <button class="tab-btn" data-num="04" onclick="switchTab('research',this)">Research</button>
+</div>
+
+<!-- ── EXPERIENCE ── -->
+<div id="tab-experience" class="tab-panel active">
+  <div class="sec-wrap">
+    <p class="sec-intro reveal">Companies where I've built things that ship.</p>
+    <div class="exp-list">
+
+      <a class="exp-row reveal" href="https://meridiansoft.ai/" target="_blank">
+        <span class="exp-period">Aug 2025 — Present</span>
+        <div class="exp-main">
+          <h2 class="exp-company">MeridianSoft Inc</h2>
+          <p class="exp-role">Data / AI Engineer</p>
+        </div>
+        <span class="exp-arrow">↗</span>
+      </a>
+
+      <a class="exp-row reveal" href="https://megnity.ai/" target="_blank">
+        <span class="exp-period">Aug 2020 — Jul 2023</span>
+        <div class="exp-main">
+          <h2 class="exp-company">Megnity Technologies</h2>
+          <p class="exp-role">Software / Data Engineer</p>
+        </div>
+        <span class="exp-arrow">↗</span>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── PROJECTS ── -->
+<div id="tab-projects" class="tab-panel">
+  <div class="sec-wrap">
+    <p class="sec-intro reveal">A selection of things I've built, researched, and shipped.</p>
+    <div class="proj-grid">
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri/Exam-engine" target="_blank">
+        <span class="proj-num">01</span>
+        <h3 class="proj-title">ExamEngine — FastAPI Exam Platform</h3>
+        <p class="proj-desc">Full-stack exam management with authentication, scoring, and cloud deployment on GCP.</p>
+        <span class="proj-tech">FastAPI · PostgreSQL · Docker · GCP Cloud Run · SQLAlchemy</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri/Analysis-On-Climate-Change-And-Impact-Of-Greenhouse-Gas-Emission-/blob/main/Group2.pdf" target="_blank">
+        <span class="proj-num">02</span>
+        <h3 class="proj-title">Climate Change &amp; Greenhouse Gas Emission Analysis</h3>
+        <p class="proj-desc">End-to-end GCP data pipeline for climate data, modeled with ARIMA and visualized in Tableau.</p>
+        <span class="proj-tech">GCP · BigQuery · DataStream · Cloud Composer · Tableau · ARIMA</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri" target="_blank">
+        <span class="proj-num">03</span>
+        <h3 class="proj-title">ComicGen — AI Comic Strip Generator</h3>
+        <p class="proj-desc">Narrative comic strips via Stable Diffusion + LoRA fine-tuning and BERT-powered RAG story logic.</p>
+        <span class="proj-tech">PyTorch · Stable Diffusion · LoRA · BERT · RAG · Generative AI</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri/Rain-drops" target="_blank">
+        <span class="proj-num">04</span>
+        <h3 class="proj-title">Rain-drops Simulation</h3>
+        <p class="proj-desc">Physics-based raindrop simulation with realistic fluid dynamics using Pygame and Pymunk.</p>
+        <span class="proj-tech">Python · Pygame · Pymunk · Game Dev</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri/Commercial-building-Energy-Optimization-A-Machine-Learning-Approach--" target="_blank">
+        <span class="proj-num">05</span>
+        <h3 class="proj-title">Commercial Building Energy Optimization</h3>
+        <p class="proj-desc">ML-driven time-series modeling to predict and reduce energy consumption in buildings.</p>
+        <span class="proj-tech">Python · sklearn · Time Series · Energy · GCP</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri/Music-Recommendation" target="_blank">
+        <span class="proj-num">06</span>
+        <h3 class="proj-title">Music Recommendation System</h3>
+        <p class="proj-desc">Content-based and collaborative filtering recommendation engine on music metadata.</p>
+        <span class="proj-tech">Python · Pandas · scikit-learn · TF-IDF · Recommenders</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri/The-LinkedIn-Job-Postings-using-MongoDB" target="_blank">
+        <span class="proj-num">07</span>
+        <h3 class="proj-title">LinkedIn Job Post Analysis</h3>
+        <p class="proj-desc">Dual-database analysis of LinkedIn postings using both MongoDB and relational SQL pipelines.</p>
+        <span class="proj-tech">MongoDB · MySQL · SQL · Data Pipeline · EDA</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri/My-Deep-learning-projects" target="_blank">
+        <span class="proj-num">08</span>
+        <h3 class="proj-title">Deep Learning Projects Collection</h3>
+        <p class="proj-desc">A curated collection spanning CNNs, GANs, LSTMs, Transformers, StyleGAN, and LangChain.</p>
+        <span class="proj-tech">PyTorch · TensorFlow · CNN · GAN · LSTM · LangChain · NLP</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+      <a class="proj-card reveal" href="https://github.com/ananyamudunuri/SF-Fire-Alarm-Analysis/blob/main/Team%2011_Technical_Rreport.pdf" target="_blank">
+        <span class="proj-num">09</span>
+        <h3 class="proj-title">SF Fire Alarm Analysis</h3>
+        <p class="proj-desc">Exploratory and predictive analysis of San Francisco fire alarm data for public-safety insights.</p>
+        <span class="proj-tech">Python · Predictive Modeling · Public Safety · EDA</span>
+        <span class="proj-arrow-sm">↗</span>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── CERTIFICATIONS ── -->
+<div id="tab-certs" class="tab-panel">
+  <div class="sec-wrap">
+    <p class="sec-intro reveal">Verified credentials across cloud and enterprise platforms.</p>
+    <div class="certs-grid">
+
+      <a class="cert-card reveal" href="https://www.credly.com/badges/354c23e5-1418-4694-9ab3-f23cfa6196e6/email" target="_blank">
+        <div class="cert-icon-wrap">
+          <span class="cert-badge aws">AWS</span>
+          <span class="cert-provider">Amazon Web Services</span>
+        </div>
+        <span class="cert-name">AWS Certified Data Engineer — Associate</span>
+        <span class="cert-verify">Verify credential ↗</span>
+      </a>
+
+      <a class="cert-card reveal" href="https://www.credly.com/badges/de8971d4-cb7a-405d-b31c-61043da61559/public_url" target="_blank">
+        <div class="cert-icon-wrap">
+          <span class="cert-badge gcp">GCP</span>
+          <span class="cert-provider">Google Cloud</span>
+        </div>
+        <span class="cert-name">Google Cloud Professional Data Engineer</span>
+        <span class="cert-verify">Verify credential ↗</span>
+      </a>
+
+      <a class="cert-card reveal" href="https://www.credly.com/badges/8bae208b-de6f-49af-9eaf-d277e3c07470/public_url" target="_blank">
+        <div class="cert-icon-wrap">
+          <span class="cert-badge aws">AWS</span>
+          <span class="cert-provider">Amazon Web Services</span>
+        </div>
+        <span class="cert-name">AWS Academy Graduate — Cloud Foundations</span>
+        <span class="cert-verify">Verify credential ↗</span>
+      </a>
+
+      <a class="cert-card reveal" href="https://www.salesforce.com/trailblazer/ananyamudunuri" target="_blank">
+        <div class="cert-icon-wrap">
+          <span class="cert-badge sf">SF</span>
+          <span class="cert-provider">Salesforce</span>
+        </div>
+        <span class="cert-name">Salesforce Certified Platform Administrator</span>
+        <span class="cert-verify">Verify credential ↗</span>
+      </a>
+
+      <a class="cert-card reveal" href="https://www.salesforce.com/trailblazer/ananyamudunuri" target="_blank">
+        <div class="cert-icon-wrap">
+          <span class="cert-badge sf">SF</span>
+          <span class="cert-provider">Salesforce</span>
+        </div>
+        <span class="cert-name">Salesforce Certified Agentforce Specialist</span>
+        <span class="cert-verify">Verify credential ↗</span>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── RESEARCH ── -->
+<div id="tab-research" class="tab-panel">
+  <div class="sec-wrap">
+    <p class="sec-intro reveal">Published research across ML, data science, and analytics.</p>
+    <div class="research-list">
+
+      <a class="res-item reveal" href="https://www.google.com/books/edition/Proceedings_of_3rd_International_Confere/XBSwEAAAQBAJ?hl=en&gbpv=1&pg=PA99&printsec=frontcover" target="_blank">
+        <div>
+          <span class="res-idx">Paper 01</span>
+          <h3 class="res-title">Proceedings of the 3rd International Conference on Recent Trends in Machine Learning, IoT, Smart Cities and Applications</h3>
+          <p class="res-pub">ICMISC 2022 · Published</p>
+        </div>
+        <span class="res-arrow">↗</span>
+      </a>
+
+      <a class="res-item reveal" href="https://openalex.org/sources/S4387284378" target="_blank">
+        <div>
+          <span class="res-idx">Paper 02</span>
+          <h3 class="res-title">Technoarete Transactions on Advances in Data Science and Analytics</h3>
+          <p class="res-pub">Technoarete · Published</p>
+        </div>
+        <span class="res-arrow">↗</span>
+      </a>
+
+      <a class="res-item reveal" href="https://www.researchgate.net/publication/369730646_Use_of_Big_Data_in_the_Process_of_Customer_Segmentation_in_the_Retail_Sector" target="_blank">
+        <div>
+          <span class="res-idx">Paper 03</span>
+          <h3 class="res-title">Use of Big Data in the Process of Customer Segmentation in the Retail Sector</h3>
+          <p class="res-pub">ResearchGate · Published</p>
+        </div>
+        <span class="res-arrow">↗</span>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Ananya Varma Mudunuri &nbsp;·&nbsp; 2025</p>
+  <div class="foot-links">
+    <a href="https://github.com/ananyamudunuri" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/ananyamudunuri/" target="_blank">LinkedIn</a>
+    <a href="mailto:mananyavarma@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX-4;my=e.clientY-4;
+  cur.style.transform=`translate(${mx}px,${my}px)`;
+});
+(function anim(){
+  rx+=(mx-17-rx)*.1;ry+=(my-17-ry)*.1;
+  ring.style.transform=`translate(${rx}px,${ry}px)`;
+  requestAnimationFrame(anim);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('grow'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('grow'));
+});
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  setTimeout(observeAll,60);
+}
+
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');}});
+},{threshold:.06});
+
+function observeAll(){
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(!el.classList.contains('vis')) io.observe(el);
+  });
+}
+observeAll();
+
+// stagger proj cards
+document.querySelectorAll('.proj-card').forEach((c,i)=>{c.style.transitionDelay=(i%3)*65+'ms'});
+document.querySelectorAll('.cert-card').forEach((c,i)=>{c.style.transitionDelay=i*55+'ms'});
+
+// page transitions
+document.querySelectorAll('a[href]').forEach(a=>{
+  const href=a.getAttribute('href');
+  if(!href.startsWith('http')&&!href.startsWith('mailto')&&!href.startsWith('#')){
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      document.getElementById('veil').classList.add('show');
+      setTimeout(()=>window.location.href=href,420);
+    });
+  }
+});
+window.addEventListener('pageshow',()=>document.getElementById('veil').classList.remove('show'));
+</script>
+</body>
+</html>
